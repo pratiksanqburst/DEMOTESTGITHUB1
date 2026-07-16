@@ -1,0 +1,24 @@
+name: Build Test
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Print Hello
+        run: echo "Hello from GitHub Actions"
+
+      - name: Wait for 15 seconds
+        run: sleep 15
+
+      - name: Build Successful
+        run: echo "Build completed successfully!"
