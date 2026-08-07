@@ -1,24 +1,45 @@
-name: Build Test
+name: Demo Pipeline
 
 on:
   push:
     branches:
       - main
-      - master
+      - feature/**
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
 
 jobs:
-  build:
+  demo:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Print Hello
-        run: echo "Hello from GitHub Actions"
+      - name: Display Information
+        run: |
+          echo "Repository: ${{ github.repository }}"
+          echo "Branch: ${{ github.ref_name }}"
+          echo "Commit: ${{ github.sha }}"
+          echo "Actor: ${{ github.actor }}"
+          date
 
-      - name: Wait for 15 seconds
-        run: sleep 15
+      - name: Simulate Build
+        run: |
+          echo "Building project..."
+          sleep 10
+          echo "Build completed."
 
-      - name: Build Successful
-        run: echo "Build completed successfully!"
+      - name: Simulate Tests
+        run: |
+          echo "Running tests..."
+          sleep 10
+          echo "All tests passed."
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: demo-report
+          path: README.md
